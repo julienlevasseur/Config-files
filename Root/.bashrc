@@ -34,7 +34,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # Other aliases :
-alias vim='/usr/local/bin/vim'
+#alias vim='/usr/local/bin/vim'
 alias vi='vim'
 alias grep='grep --color=auto'
 alias rsync='rsync -var --progress'
@@ -42,6 +42,8 @@ alias apt-search='apt-cache search'
 
 export PS1='\[\e[0;36m\]\T \d \[\e[1;37m\][\[\e[1;31m\]\u@\H\[\e[1;37m\]:\[\e[0;37m\]${SSH_TTY} \[\e[0;31m\]+${SHLVL}\[\e[1;37m\]] \[\e[1;33m\]\w\[\e[0;37m\] \$ \n'
 #export PYTHONPATH="/usr/local/lib/python2.7:/usr/local/lib/python2.7/dist-packages"
-export PYTHONPATH="/usr/local/lib/python2.7:/usr/local/lib/python2.7/dist-packages:/usr/lib/python2.7/dist-packages"
-echo -e "\e[0;101munset PYTHONPATH if need to work with APT !\e[0m"
+#export PYTHONPATH="/usr/local/lib/python2.7:/usr/local/lib/python2.7/dist-packages:/usr/lib/python2.7/dist-packages"
+#echo -e "\e[0;101munset PYTHONPATH if need to work with APT !\e[0m"
+echo " "
+echo -e "\e[0;101mYOU'RE NOW ROOT !\e[0m"
 echo " "
