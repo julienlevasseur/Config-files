@@ -2,3 +2,5 @@
 
 cp .bashrc ~/
 cp .git-prompt.sh ~/
+cd ../..
+bash setup-vim.sh
