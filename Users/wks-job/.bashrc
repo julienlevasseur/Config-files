@@ -112,9 +112,5 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-export PATH=$PATH:/home/jlevasseur/repos/gnsapitool
-#export http_proxy="http://mtr-net-proxy.ubisoft.org:3128/"
-#export https_proxy="http://mtr-net-proxy.ubisoft.org:3128/"
-
 # Load in the git branch prompt script.
 source ~/.git-prompt.sh
