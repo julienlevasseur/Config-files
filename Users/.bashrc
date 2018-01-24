@@ -97,7 +97,7 @@ fi
 alias kitchen='chef exec kitchen'
 alias inspec='chef exec inspec'
 
-alias ssh_hosts="grep 'Host ' ~/.ssh/config|awk '{print $2}\'"
+alias ssh_hosts="grep 'Host ' ~/.ssh/config|awk '{print $2}\'|sort"
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
