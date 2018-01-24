@@ -51,17 +51,22 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+parse_git_branch() {
+ git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
 if [ "$color_prompt" = yes ]; then
-    export PS1='\[\e[0;36m\]\T \d \[\e[1;37m\][\[\e[1;32m\]\u@\H\[\e[1;37m\]:\[\e[0;37m\]${SSH_TTY} \[\e[0;32m\]+${SHLVL}\[\e[1;37m\]] \[\e[1;33m\]\w\[\e[0;37m\] \$ \n'
+    export PS1='\[\e[0;36m\]\T \[\e[1;37m\][\[\e[1;32m\]\u@\H\[\e[1;37m\]:\[\e[0;37m\]\[\e[0;32m\]+${SHLVL}\[\e[1;37m\] \[\e[1;34m\]$(parse_git_branch) \[\e[1;35m\]${profile_name}\[\e[0;37m\] ] \[\e[1;33m\]\w\[\e[0;37m\] \$ \n'
 else
-    export PS1='\[\e[0;36m\]\T \d \[\e[1;37m\][\[\e[1;32m\]\u@\H\[\e[1;37m\]:\[\e[0;37m\]${SSH_TTY} \[\e[0;32m\]+${SHLVL}\[\e[1;37m\]] \[\e[1;33m\]\w\[\e[0;37m\] \$ \n'
+    export PS1='\[\e[0;36m\]\T \[\e[1;37m\][\[\e[1;32m\]\u@\H\[\e[1;37m\]:\[\e[0;37m\]\[\e[0;32m\]+${SHLVL}\[\e[1;37m\] \[\e[1;34m\]$(parse_git_branch) \[\e[1;35m\]${profile_name}\[\e[0;37m\] ] \[\e[1;33m\]\w\[\e[0;37m\] \$ \n'
 fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    export PS1='\[\e[0;36m\]\T \d \[\e[1;37m\][\[\e[1;32m\]\u@\H\[\e[1;37m\]:\[\e[0;37m\]${SSH_TTY} \[\e[0;32m\]+${SHLVL}\[\e[1;37m\]] \[\e[1;33m\]\w\[\e[0;37m\] \$ \n'
+    #export PS1='\[\e[0;36m\]\T \d \[\e[1;37m\][\[\e[1;32m\]\u@\H\[\e[1;37m\]:\[\e[0;37m\]${SSH_TTY} \[\e[0;32m\]+${SHLVL}\[\e[1;37m\]] \[\e[1;33m\]\w\[\e[0;37m\] \$ \n'
+    export PS1='\[\e[0;36m\]\T \[\e[1;37m\][\[\e[1;32m\]\u@\H\[\e[1;37m\]:\[\e[0;37m\]\[\e[1;37m\]\[\e[1;34m\]$(parse_git_branch) \[\e[1;35m\]${profile_name}\[\e[0;37m\] ] \[\e[1;33m\]\w\[\e[0;37m\] \$ \n'
     ;;
 *)
     ;;
@@ -71,12 +76,7 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    #alias grep='grep --color=auto'
-    #alias fgrep='fgrep --color=auto'
-    #alias egrep='egrep --color=auto'
+    alias grep='grep --color=auto'
 fi
 
 # some more ls aliases
@@ -84,8 +84,20 @@ alias ll='ls -l'
 alias la='ls -A'
 alias lt='ls -lrt'
 alias lZ='ls -lZ'
-#alias l='ls -CF'
 alias rsync='rsync -var --progress'
+# Git :
+alias gadd='git add'
+alias gcom='git commit -m'
+alias gps='git push'
+# Leatherman :
+if [ -d "/opt/leatherman" ]; then
+  export PATH=$PATH:~/repos/bitbucket/leatherman
+  alias cloud='leatherman cloud'
+fi
+alias kitchen='chef exec kitchen'
+alias inspec='chef exec inspec'
+
+alias ssh_hosts="grep 'Host ' ~/.ssh/config|awk '{print $2}\'"
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -103,4 +115,41 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-export PATH=$PATH:/Stockage/Applications/MySQL/bin
+# Load in the git branch prompt script.
+source ~/.git-prompt.sh
+
+# Golang :
+if [ -d "$HOME/.go" ]; then
+  export GOPATH=$HOME/.go:$HOME/repos/github/hcl-lint
+fi
+
+# Terraform :
+if [ -d "/opt/terraform" ]; then
+  export PATH=$PATH:/opt/terraform
+fi
+
+# Nomad :
+if [ -d "/opt/nomad" ]; then
+  export PATH=$PATH:/opt/nomad
+fi
+
+# Consul :
+if [ -d "/opt/consul" ]; then
+  export PATH=$PATH:/opt/consul
+fi
+
+# Packer :
+if [ -d "/opt/packer" ]; then
+  export PATH=$PATH:/opt/packer
+fi
+
+# Vault :
+if [ -d "/opt/vault" ]; then
+  export PATH=$PATH:/opt/vault
+  export VAULT_ADDR='http://127.0.0.1:8200'
+fi
+
+# Minikube :
+if [ -d "/opt/minikube" ]; then
+  export PATH=$PATH:/opt/minikube
+fi
