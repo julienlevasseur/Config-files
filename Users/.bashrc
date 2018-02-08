@@ -121,6 +121,7 @@ source ~/.git-prompt.sh
 # Golang :
 if [ -d "$HOME/.go" ]; then
   export GOPATH=$HOME/.go:$HOME/repos/github/hcl-lint
+  export GOBIN=$HOME/.go/bin
 fi
 
 # Terraform :
