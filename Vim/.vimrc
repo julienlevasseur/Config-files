@@ -4,6 +4,8 @@ set expandtab
 set shiftwidth=2
 set shiftround
 
+set paste
+
 syntax enable
 colorscheme monokai
 set number
