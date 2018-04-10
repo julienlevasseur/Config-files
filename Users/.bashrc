@@ -127,6 +127,7 @@ fi
 # Terraform :
 if [ -d "/opt/terraform" ]; then
   export PATH=$PATH:/opt/terraform
+  alias tflint='terraform fmt -check=true -write=false -diff=true'
 fi
 
 # Nomad :
