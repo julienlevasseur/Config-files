@@ -89,10 +89,9 @@ alias rsync='rsync -var --progress'
 alias gadd='git add'
 alias gcom='git commit -m'
 alias gps='git push'
-# Leatherman :
-if [ -d "/opt/leatherman" ]; then
-  export PATH=$PATH:~/repos/bitbucket/leatherman
-  alias cloud='leatherman cloud'
+# Cloud Profile Manager
+if [ -f "/usr/local/bin/cloud_profile_manager" ]; then
+  alias cloud='cloud_profile_manager'
 fi
 alias kitchen='chef exec kitchen'
 alias inspec='chef exec inspec'
